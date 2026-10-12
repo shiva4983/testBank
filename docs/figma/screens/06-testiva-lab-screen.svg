@@ -1,0 +1,283 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 1024" width="1440" height="1024">
+  <defs>
+    <style>
+      .font-sans { font-family: Inter, system-ui, -apple-system, sans-serif; }
+      .bg-canvas { fill: #0B1120; }
+      .bg-card { fill: #1E293B; }
+      .text-white { fill: #F8FAFC; }
+      .text-slate { fill: #94A3B8; }
+      .text-cyan { fill: #38BDF8; }
+      .text-purple { fill: #C084FC; }
+      .text-amber { fill: #FBBF24; }
+      .text-rose { fill: #FB7185; }
+      .border-dark { stroke: #334155; stroke-width: 1; }
+      .toggle-bg-on { fill: #6366F1; }
+      .toggle-bg-off { fill: #334155; }
+    </style>
+    <filter id="shadow-dark" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+  </defs>
+
+  <!-- Dark Mode Canvas Background (Testiva Lab Styling) -->
+  <rect width="1440" height="1024" class="bg-canvas" />
+
+  <!-- Global Header / Navbar -->
+  <g id="navbar" class="font-sans">
+    <rect width="1440" height="72" fill="#0F172A" />
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#1E293B" stroke-width="1" />
+    
+    <!-- Logo -->
+    <g id="nav-brand" transform="translate(64, 18)">
+      <rect width="36" height="36" rx="8" fill="#6366F1" />
+      <path d="M12 24 L18 12 L24 24 Z" fill="#FFFFFF" />
+      <circle cx="18" cy="18" r="3" fill="#A5B4FC" />
+      <text x="46" y="24" font-size="20" font-weight="700" class="text-white">FinApex</text>
+      <rect x="140" y="4" width="96" height="22" rx="4" fill="#312E81" stroke="#4F46E5" stroke-width="1" />
+      <text x="188" y="19" text-anchor="middle" font-size="11" font-weight="700" fill="#818CF8">TESTIVA LAB</text>
+    </g>
+
+    <!-- Navigation Links -->
+    <g id="nav-links" transform="translate(340, 26)">
+      <text id="nav-dashboard" x="0" y="16" font-size="14" font-weight="500" class="text-slate">Dashboard</text>
+      <text id="nav-transfers" x="110" y="16" font-size="14" font-weight="500" class="text-slate">Transfers</text>
+      <text id="nav-billpay" x="210" y="16" font-size="14" font-weight="500" class="text-slate">Bill Pay</text>
+      <text id="nav-statements" x="300" y="16" font-size="14" font-weight="500" class="text-slate">Statements</text>
+      
+      <!-- Active Item: Testiva Lab -->
+      <rect x="405" y="-4" width="115" height="36" rx="6" fill="#1E1B4B" stroke="#4F46E5" stroke-width="1" />
+      <text id="nav-admin" x="422" y="18" font-size="14" font-weight="600" fill="#A5B4FC">Testiva Lab</text>
+    </g>
+
+    <!-- Right Profile / Status Area -->
+    <g id="nav-user" transform="translate(1240, 16)">
+      <circle cx="20" cy="20" r="18" fill="#334155" />
+      <text x="20" y="25" text-anchor="middle" font-size="13" font-weight="600" fill="#E2E8F0">QA</text>
+      <text x="48" y="24" font-size="14" font-weight="500" class="text-white">Test Engineer</text>
+    </g>
+  </g>
+
+  <!-- Page Container -->
+  <g id="page-content" transform="translate(140, 96)" class="font-sans">
+    
+    <!-- Page Header & Reset Button -->
+    <g id="header-section">
+      <text id="page-title" x="0" y="32" font-size="28" font-weight="700" class="text-white">Testiva Admin &amp; Chaos Engineering Lab</text>
+      <text id="page-desc" x="0" y="58" font-size="15" class="text-slate">Inject synthetic runtime faults, simulate slow networks, test locator self-healing, and audit accessibility compliance.</text>
+      
+      <!-- Reset button -->
+      <g id="admin-actions" transform="translate(980, 14)">
+        <rect id="btn-reset-chaos" width="180" height="42" rx="8" fill="#334155" stroke="#475569" stroke-width="1" />
+        <text x="90" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="#F8FAFC">Reset All to Defaults</text>
+      </g>
+    </g>
+
+    <!-- 3-Column Grid for Testing Dimensions -->
+    
+    <!-- CARD 1: Chaos & Failure Injection -->
+    <g id="card-chaos-engine" transform="translate(0, 90)" filter="url(#shadow-dark)">
+      <rect width="368" height="520" rx="12" class="bg-card border-dark" />
+      
+      <rect x="24" y="24" width="36" height="36" rx="8" fill="#4C1D95" />
+      <text x="42" y="47" text-anchor="middle" font-size="18">⚡</text>
+      <text x="72" y="44" font-size="16" font-weight="700" class="text-white">Chaos Injection</text>
+      <text x="72" y="62" font-size="12" class="text-slate">API faults &amp; network lag</text>
+      <line x1="24" y1="78" x2="344" y2="78" stroke="#334155" stroke-width="1" />
+
+      <!-- Latency Slider Control -->
+      <g id="control-latency" transform="translate(24, 96)">
+        <text id="label-chaos-latency" x="0" y="0" font-size="13" font-weight="600" class="text-white">API Latency Delay (ms)</text>
+        <text x="320" y="0" font-size="13" font-weight="700" class="text-cyan" text-anchor="end">2500 ms</text>
+        
+        <!-- Slider Track -->
+        <rect x="0" y="16" width="320" height="8" rx="4" fill="#0F172A" />
+        <rect x="0" y="16" width="160" height="8" rx="4" fill="#38BDF8" />
+        <circle cx="160" cy="20" r="10" fill="#FFFFFF" stroke="#0284C7" stroke-width="2" />
+        <text x="0" y="40" font-size="11" class="text-slate">0ms (Normal)</text>
+        <text x="320" y="40" font-size="11" class="text-slate" text-anchor="end">5000ms (Heavy)</text>
+      </g>
+
+      <!-- Failure Rate Slider Control -->
+      <g id="control-fail-rate" transform="translate(24, 160)">
+        <text id="label-chaos-fail-rate" x="0" y="0" font-size="13" font-weight="600" class="text-white">HTTP 500 Fault Probability</text>
+        <text x="320" y="0" font-size="13" font-weight="700" class="text-rose" text-anchor="end">30 %</text>
+        
+        <rect x="0" y="16" width="320" height="8" rx="4" fill="#0F172A" />
+        <rect x="0" y="16" width="96" height="8" rx="4" fill="#FB7185" />
+        <circle cx="96" cy="20" r="10" fill="#FFFFFF" stroke="#E11D48" stroke-width="2" />
+        <text x="0" y="40" font-size="11" class="text-slate">0% (Clean)</text>
+        <text x="320" y="40" font-size="11" class="text-slate" text-anchor="end">100% (Down)</text>
+      </g>
+
+      <!-- Slow Render Toggle -->
+      <g id="control-slow-render" transform="translate(24, 226)">
+        <text x="0" y="18" font-size="13" font-weight="600" class="text-white">Simulate Slow React Render</text>
+        <text x="0" y="36" font-size="11" class="text-slate">Freezes thread with heavy calculation</text>
+        
+        <rect id="toggle-slow-render" x="272" y="8" width="48" height="26" rx="13" class="toggle-bg-on" />
+        <circle cx="305" cy="21" r="10" fill="#FFFFFF" />
+      </g>
+
+      <!-- Console Noise Toggle -->
+      <g id="control-console-noise" transform="translate(24, 286)">
+        <text x="0" y="18" font-size="13" font-weight="600" class="text-white">Browser Console Noise</text>
+        <text x="0" y="36" font-size="11" class="text-slate">Emit warn/error traces for Testiva</text>
+        
+        <rect id="toggle-console-noise" x="272" y="8" width="48" height="26" rx="13" class="toggle-bg-on" />
+        <circle cx="305" cy="21" r="10" fill="#FFFFFF" />
+      </g>
+
+      <!-- Trigger Failure CTA -->
+      <g id="btn-fire-chaos" transform="translate(24, 370)">
+        <rect width="320" height="42" rx="8" fill="#E11D48" />
+        <text x="160" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF">Simulate Immediate Gateway 503</text>
+      </g>
+
+      <text x="184" y="440" text-anchor="middle" font-size="11" class="text-slate">Targeted service: auth-service &amp; tx-service</text>
+    </g>
+
+    <!-- CARD 2: Locator Mutation Engine (Self-Healing) -->
+    <g id="card-locator-mutation" transform="translate(396, 90)" filter="url(#shadow-dark)">
+      <rect width="368" height="520" rx="12" class="bg-card border-dark" />
+      
+      <rect x="24" y="24" width="36" height="36" rx="8" fill="#14532D" />
+      <text x="42" y="47" text-anchor="middle" font-size="18">🧬</text>
+      <text x="72" y="44" font-size="16" font-weight="700" class="text-white">Locator Self-Healing</text>
+      <text x="72" y="62" font-size="12" class="text-slate">Mutate DOM IDs, names &amp; testids</text>
+      <line x1="24" y1="78" x2="344" y2="78" stroke="#334155" stroke-width="1" />
+
+      <!-- Mode Selection Radio -->
+      <g id="mutation-radios" transform="translate(24, 96)">
+        <text x="0" y="0" font-size="13" font-weight="600" class="text-white">Active Schema Variant</text>
+        
+        <!-- Radio 1: Default Baseline -->
+        <g id="radio-schema-default" transform="translate(0, 16)">
+          <rect width="320" height="50" rx="8" fill="#0F172A" stroke="#334155" stroke-width="1" />
+          <circle cx="24" cy="25" r="7" fill="none" stroke="#64748B" stroke-width="2" />
+          <text x="44" y="24" font-size="13" font-weight="600" class="text-white">Baseline Standard</text>
+          <text x="44" y="39" font-size="11" class="text-slate">id="login-email", testid="btn-login"</text>
+        </g>
+
+        <!-- Radio 2: Mutated Schema (Active) -->
+        <g id="radio-schema-mutated" transform="translate(0, 74)">
+          <rect width="320" height="50" rx="8" fill="#1E1B4B" stroke="#6366F1" stroke-width="1.5" />
+          <circle cx="24" cy="25" r="7" fill="#6366F1" />
+          <circle cx="24" cy="25" r="3" fill="#FFFFFF" />
+          <text x="44" y="24" font-size="13" font-weight="600" fill="#A5B4FC">Mutated Schema v2</text>
+          <text x="44" y="39" font-size="11" fill="#818CF8">id="usr_auth_mail_v2", testid="submit_v2"</text>
+        </g>
+
+        <!-- Radio 3: Hash Obfuscation -->
+        <g id="radio-schema-hash" transform="translate(0, 132)">
+          <rect width="320" height="50" rx="8" fill="#0F172A" stroke="#334155" stroke-width="1" />
+          <circle cx="24" cy="25" r="7" fill="none" stroke="#64748B" stroke-width="2" />
+          <text x="44" y="24" font-size="13" font-weight="600" class="text-white">CSS-in-JS Obfuscated</text>
+          <text x="44" y="39" font-size="11" class="text-slate">id="_x7f9a2", class="sc-gXf81"</text>
+        </g>
+      </g>
+
+      <!-- Mutation Preview -->
+      <g id="mutation-preview-box" transform="translate(24, 306)">
+        <rect width="320" height="96" rx="8" fill="#0B1120" stroke="#1E293B" stroke-width="1" />
+        <text x="14" y="24" font-size="11" font-weight="700" fill="#64748B">MUTATED SELECTOR MAP</text>
+        <text x="14" y="46" font-size="12" font-family="monospace" fill="#38BDF8">btn-transfer → btn-exec-wire-v2</text>
+        <text x="14" y="66" font-size="12" font-family="monospace" fill="#38BDF8">input-amount → fld-numeric-sum</text>
+        <text x="14" y="86" font-size="11" class="text-slate">Validates Testiva semantic fallback tree</text>
+      </g>
+
+      <g id="btn-apply-mutations" transform="translate(24, 420)">
+        <rect width="320" height="42" rx="8" fill="#4F46E5" />
+        <text x="160" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF">Apply DOM Mutations</text>
+      </g>
+    </g>
+
+    <!-- CARD 3: Accessibility Engine (WCAG 2.1 AA) -->
+    <g id="card-a11y-engine" transform="translate(792, 90)" filter="url(#shadow-dark)">
+      <rect width="368" height="520" rx="12" class="bg-card border-dark" />
+      
+      <rect x="24" y="24" width="36" height="36" rx="8" fill="#065F46" />
+      <text x="42" y="47" text-anchor="middle" font-size="18">♿</text>
+      <text x="72" y="44" font-size="16" font-weight="700" class="text-white">Accessibility (A11y)</text>
+      <text x="72" y="62" font-size="12" class="text-slate">WCAG 2.1 AA compliance toggles</text>
+      <line x1="24" y1="78" x2="344" y2="78" stroke="#334155" stroke-width="1" />
+
+      <!-- Master Mode Switch -->
+      <g id="control-master-a11y" transform="translate(24, 96)">
+        <rect width="320" height="52" rx="8" fill="#0F172A" stroke="#334155" stroke-width="1" />
+        <text x="16" y="24" font-size="13" font-weight="700" class="text-white">Master A11y Standard</text>
+        <text x="16" y="40" font-size="11" fill="#4ADE80">WCAG 2.1 AA (Compliant)</text>
+        
+        <rect id="toggle-master-a11y" x="256" y="14" width="48" height="24" rx="12" fill="#16A34A" />
+        <circle cx="288" cy="26" r="9" fill="#FFFFFF" />
+      </g>
+
+      <!-- Granular Violation Checkboxes -->
+      <g id="a11y-violation-toggles" transform="translate(24, 168)">
+        <text x="0" y="0" font-size="12" font-weight="700" fill="#64748B">INJECT SPECIFIC VIOLATIONS</text>
+        
+        <!-- Toggle 1: Contrast -->
+        <g id="toggle-violation-contrast" transform="translate(0, 16)">
+          <rect width="20" height="20" rx="4" fill="#0F172A" stroke="#475569" stroke-width="1.5" />
+          <text x="32" y="15" font-size="13" class="text-white">Degrade Color Contrast (&lt; 3:1)</text>
+        </g>
+
+        <!-- Toggle 2: Missing Form Labels -->
+        <g id="toggle-violation-labels" transform="translate(0, 48)">
+          <rect width="20" height="20" rx="4" fill="#0F172A" stroke="#475569" stroke-width="1.5" />
+          <text x="32" y="15" font-size="13" class="text-white">Strip &lt;label&gt; &amp; htmlFor Tags</text>
+        </g>
+
+        <!-- Toggle 3: Suppress Focus Ring -->
+        <g id="toggle-violation-focus" transform="translate(0, 80)">
+          <rect width="20" height="20" rx="4" fill="#0F172A" stroke="#475569" stroke-width="1.5" />
+          <text x="32" y="15" font-size="13" class="text-white">Disable Keyboard Focus Outline</text>
+        </g>
+
+        <!-- Toggle 4: Broken Heading Hierarchy -->
+        <g id="toggle-violation-headings" transform="translate(0, 112)">
+          <rect width="20" height="20" rx="4" fill="#0F172A" stroke="#475569" stroke-width="1.5" />
+          <text x="32" y="15" font-size="13" class="text-white">Break Heading Hierarchy (H1→H4)</text>
+        </g>
+
+        <!-- Toggle 5: Missing ARIA -->
+        <g id="toggle-violation-aria" transform="translate(0, 144)">
+          <rect width="20" height="20" rx="4" fill="#0F172A" stroke="#475569" stroke-width="1.5" />
+          <text x="32" y="15" font-size="13" class="text-white">Strip ARIA Roles &amp; Live Regions</text>
+        </g>
+      </g>
+
+      <!-- Status Pill -->
+      <g id="a11y-score-pill" transform="translate(24, 350)">
+        <rect width="320" height="38" rx="6" fill="#0F172A" stroke="#16A34A" stroke-width="1" />
+        <circle cx="20" cy="19" r="6" fill="#16A34A" />
+        <text x="36" y="24" font-size="12" font-weight="600" fill="#4ADE80">Current Axe-Core Score: 100% Passing</text>
+      </g>
+
+      <g id="btn-toggle-non-compliant" transform="translate(24, 420)">
+        <rect width="320" height="42" rx="8" fill="#334155" stroke="#475569" stroke-width="1" />
+        <text x="160" y="26" text-anchor="middle" font-size="13" font-weight="600" fill="#F8FAFC">Switch to Non-Compliant Mode</text>
+      </g>
+    </g>
+
+    <!-- Bottom Real-Time Audit / Diagnostics Console -->
+    <g id="diagnostics-terminal" transform="translate(0, 630)" filter="url(#shadow-dark)">
+      <rect width="1160" height="150" rx="10" fill="#030712" stroke="#1F2937" stroke-width="1" />
+      
+      <!-- Terminal Header -->
+      <circle cx="24" cy="20" r="5" fill="#EF4444" />
+      <circle cx="40" cy="20" r="5" fill="#F59E0B" />
+      <circle cx="56" cy="20" r="5" fill="#10B981" />
+      <text x="76" y="24" font-size="12" font-family="monospace" fill="#6B7280">testiva-runtime-telemetry.log</text>
+      <line x1="0" y1="36" x2="1160" y2="36" stroke="#111827" stroke-width="1" />
+
+      <!-- Log stream -->
+      <g transform="translate(24, 60)" font-family="monospace" font-size="12">
+        <text y="0" fill="#34D399">[INFO]  19:40:12.102 TestivaContext initialized - Mode: COMPLIANT | Latency: 0ms | FailRate: 0%</text>
+        <text y="22" fill="#60A5FA">[DEBUG] 19:40:15.840 GET /api/v1/accounts - 200 OK (14ms)</text>
+        <text y="44" fill="#FBBF24">[WARN]  19:40:22.409 Synthetic locator test pending: Schema 'default' ready for axe-core accessibility audit</text>
+        <text y="66" fill="#A78BFA">[TESTIVA] Agent locator tracker attached: 48 interactive components indexed</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

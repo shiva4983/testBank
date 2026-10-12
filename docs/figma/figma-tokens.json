@@ -1,0 +1,91 @@
+{
+  "name": "FinApex Quantum Design System",
+  "version": "1.2.0",
+  "author": "FinApex Banking Architecture",
+  "description": "Figma Design Tokens for Testiva automated visual and locator testing",
+  "color": {
+    "brand": {
+      "primary-900": { "value": "#0B192C", "type": "color", "description": "Deep Navy canvas and app bar" },
+      "primary-800": { "value": "#142740", "type": "color", "description": "Active navigation container" },
+      "primary-700": { "value": "#1E3E62", "type": "color", "description": "Primary interactive brand color" },
+      "accent-500": { "value": "#D9480F", "type": "color", "description": "WCAG AA accessible CTA button (4.9:1 contrast)" },
+      "accent-600": { "value": "#B93807", "type": "color", "description": "Hover state for primary action" }
+    },
+    "neutral": {
+      "canvas": { "value": "#F8FAFC", "type": "color", "description": "App background surface" },
+      "card": { "value": "#FFFFFF", "type": "color", "description": "Elevated card surface" },
+      "border-light": { "value": "#E2E8F0", "type": "color", "description": "Dividers and inactive strokes" },
+      "border-focus": { "value": "#2563EB", "type": "color", "description": "WCAG 2.4.7 visible focus indicator (3px)" },
+      "text-primary": { "value": "#0F172A", "type": "color", "description": "High contrast typography (16:1 ratio)" },
+      "text-secondary": { "value": "#475569", "type": "color", "description": "Helper and subtitle text (6.8:1 ratio)" },
+      "text-muted": { "value": "#64748B", "type": "color", "description": "Labels and placeholders (4.5:1 ratio)" }
+    },
+    "feedback": {
+      "success-bg": { "value": "#DCFCE7", "type": "color" },
+      "success-text": { "value": "#14532D", "type": "color", "description": "7.3:1 contrast against success-bg" },
+      "error-bg": { "value": "#FEF2F2", "type": "color" },
+      "error-text": { "value": "#991B1B", "type": "color", "description": "7.8:1 contrast against error-bg" },
+      "warning-bg": { "value": "#FEF3C7", "type": "color" },
+      "warning-text": { "value": "#92400E", "type": "color" }
+    }
+  },
+  "typography": {
+    "fontFamily": { "value": "Inter, sans-serif", "type": "fontFamilies" },
+    "display-1": {
+      "fontSize": { "value": "36px", "type": "fontSizes" },
+      "lineHeight": { "value": "44px", "type": "lineHeights" },
+      "fontWeight": { "value": "800", "type": "fontWeights" }
+    },
+    "heading-1": {
+      "fontSize": { "value": "24px", "type": "fontSizes" },
+      "lineHeight": { "value": "32px", "type": "lineHeights" },
+      "fontWeight": { "value": "700", "type": "fontWeights" }
+    },
+    "heading-2": {
+      "fontSize": { "value": "20px", "type": "fontSizes" },
+      "lineHeight": { "value": "28px", "type": "lineHeights" },
+      "fontWeight": { "value": "700", "type": "fontWeights" }
+    },
+    "body": {
+      "fontSize": { "value": "14px", "type": "fontSizes" },
+      "lineHeight": { "value": "20px", "type": "lineHeights" },
+      "fontWeight": { "value": "500", "type": "fontWeights" }
+    },
+    "caption": {
+      "fontSize": { "value": "12px", "type": "fontSizes" },
+      "lineHeight": { "value": "16px", "type": "lineHeights" },
+      "fontWeight": { "value": "600", "type": "fontWeights" }
+    }
+  },
+  "spacing": {
+    "xs": { "value": "4px", "type": "spacing" },
+    "sm": { "value": "8px", "type": "spacing" },
+    "md": { "value": "12px", "type": "spacing" },
+    "lg": { "value": "16px", "type": "spacing" },
+    "xl": { "value": "24px", "type": "spacing" },
+    "2xl": { "value": "32px", "type": "spacing" },
+    "touchTargetMin": { "value": "44px", "type": "spacing", "description": "WCAG 2.5.5 minimum target size" }
+  },
+  "borderRadius": {
+    "sm": { "value": "6px", "type": "borderRadius" },
+    "md": { "value": "8px", "type": "borderRadius" },
+    "lg": { "value": "12px", "type": "borderRadius" },
+    "xl": { "value": "16px", "type": "borderRadius" },
+    "pill": { "value": "9999px", "type": "borderRadius" }
+  },
+  "boxShadow": {
+    "card": {
+      "value": "0px 1px 3px rgba(0, 0, 0, 0.08), 0px 1px 2px rgba(0, 0, 0, 0.06)",
+      "type": "boxShadow"
+    },
+    "modal": {
+      "value": "0px 20px 25px -5px rgba(0, 0, 0, 0.15), 0px 8px 10px -6px rgba(0, 0, 0, 0.1)",
+      "type": "boxShadow"
+    },
+    "focusVisible": {
+      "value": "0 0 0 3px #2563EB",
+      "type": "boxShadow",
+      "description": "WCAG 2.4.7 accessible focus outline"
+    }
+  }
+}

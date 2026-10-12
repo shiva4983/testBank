@@ -1,0 +1,121 @@
+{
+  "family": "finapex-microservices-task",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "1024",
+  "memory": "2048",
+  "executionRoleArn": "arn:aws:iam::123456789012:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::123456789012:role/finapexAppRole",
+  "containerDefinitions": [
+    {
+      "name": "api-gateway",
+      "image": "123456789012.dkr.ecr.us-east-1.amazonaws.com/finapex-api-gateway:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 9000,
+          "hostPort": 9000,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        { "name": "PORT", "value": "9000" },
+        { "name": "NODE_ENV", "value": "production" },
+        { "name": "AWS_REGION", "value": "us-east-1" },
+        { "name": "AUTH_SERVICE_URL", "value": "http://127.0.0.1:9001" },
+        { "name": "ACCOUNT_SERVICE_URL", "value": "http://127.0.0.1:9002" },
+        { "name": "TRANSACTION_SERVICE_URL", "value": "http://127.0.0.1:9003" }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/aws/finapex/api-gateway",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "gateway",
+          "awslogs-create-group": "true"
+        }
+      }
+    },
+    {
+      "name": "auth-service",
+      "image": "123456789012.dkr.ecr.us-east-1.amazonaws.com/finapex-auth-service:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 9001,
+          "hostPort": 9001,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        { "name": "PORT", "value": "9001" },
+        { "name": "NODE_ENV", "value": "production" },
+        { "name": "AWS_REGION", "value": "us-east-1" },
+        { "name": "DATABASE_URL", "value": "postgres://finapex_admin:SecretBankPassword2026!@finapex-rds.cr1234.us-east-1.rds.amazonaws.com:5432/finapex_db" }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/aws/finapex/auth-service",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "auth",
+          "awslogs-create-group": "true"
+        }
+      }
+    },
+    {
+      "name": "account-service",
+      "image": "123456789012.dkr.ecr.us-east-1.amazonaws.com/finapex-account-service:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 9002,
+          "hostPort": 9002,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        { "name": "PORT", "value": "9002" },
+        { "name": "NODE_ENV", "value": "production" },
+        { "name": "AWS_REGION", "value": "us-east-1" },
+        { "name": "DATABASE_URL", "value": "postgres://finapex_admin:SecretBankPassword2026!@finapex-rds.cr1234.us-east-1.rds.amazonaws.com:5432/finapex_db" }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/aws/finapex/account-service",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "account",
+          "awslogs-create-group": "true"
+        }
+      }
+    },
+    {
+      "name": "transaction-service",
+      "image": "123456789012.dkr.ecr.us-east-1.amazonaws.com/finapex-transaction-service:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 9003,
+          "hostPort": 9003,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        { "name": "PORT", "value": "9003" },
+        { "name": "NODE_ENV", "value": "production" },
+        { "name": "AWS_REGION", "value": "us-east-1" },
+        { "name": "DATABASE_URL", "value": "postgres://finapex_admin:SecretBankPassword2026!@finapex-rds.cr1234.us-east-1.rds.amazonaws.com:5432/finapex_db" }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/aws/finapex/transaction-service",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "transaction",
+          "awslogs-create-group": "true"
+        }
+      }
+    }
+  ]
+}

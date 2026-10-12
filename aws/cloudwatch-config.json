@@ -1,0 +1,54 @@
+{
+  "agent": {
+    "metrics_collection_interval": 60,
+    "run_as_user": "root"
+  },
+  "logs": {
+    "logs_collected": {
+      "files": {
+        "collect_list": [
+          {
+            "file_path": "/var/log/finapex/api-gateway.log",
+            "log_group_name": "/aws/finapex/api-gateway",
+            "log_stream_name": "{instance_id}-gateway",
+            "timestamp_format": "%Y-%m-%dT%H:%M:%S.%f%z",
+            "timezone": "UTC"
+          },
+          {
+            "file_path": "/var/log/finapex/auth-service.log",
+            "log_group_name": "/aws/finapex/auth-service",
+            "log_stream_name": "{instance_id}-auth",
+            "timestamp_format": "%Y-%m-%dT%H:%M:%S.%f%z",
+            "timezone": "UTC"
+          },
+          {
+            "file_path": "/var/log/finapex/account-service.log",
+            "log_group_name": "/aws/finapex/account-service",
+            "log_stream_name": "{instance_id}-account",
+            "timestamp_format": "%Y-%m-%dT%H:%M:%S.%f%z",
+            "timezone": "UTC"
+          },
+          {
+            "file_path": "/var/log/finapex/transaction-service.log",
+            "log_group_name": "/aws/finapex/transaction-service",
+            "log_stream_name": "{instance_id}-transaction",
+            "timestamp_format": "%Y-%m-%dT%H:%M:%S.%f%z",
+            "timezone": "UTC"
+          }
+        ]
+      }
+    }
+  },
+  "metrics": {
+    "metrics_collected": {
+      "cpu": {
+        "measurement": ["cpu_usage_idle", "cpu_usage_iowait", "cpu_usage_user", "cpu_usage_system"],
+        "metrics_collection_interval": 30
+      },
+      "mem": {
+        "measurement": ["mem_used_percent"],
+        "metrics_collection_interval": 30
+      }
+    }
+  }
+}

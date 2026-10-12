@@ -1,0 +1,109 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: finapex-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: finapex_db
+      POSTGRES_USER: finapex_admin
+      POSTGRES_PASSWORD: SecretBankPassword2026!
+    ports:
+      - "5432:5432"
+    volumes:
+      - ../database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ../database/seed_data.sql:/docker-entrypoint-initdb.d/02-seed.sql
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U finapex_admin -d finapex_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  auth-service:
+    build:
+      context: ../services
+      dockerfile: Dockerfile
+    command: ["node", "auth-service/index.js"]
+    container_name: finapex-auth-service
+    ports:
+      - "9001:9001"
+    environment:
+      PORT: 9001
+      NODE_ENV: production
+      DATABASE_URL: postgres://finapex_admin:SecretBankPassword2026!@postgres:5432/finapex_db
+      JWT_SECRET: finapex-super-secret-production-key-2026
+      AWS_REGION: us-east-1
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  account-service:
+    build:
+      context: ../services
+      dockerfile: Dockerfile
+    command: ["node", "account-service/index.js"]
+    container_name: finapex-account-service
+    ports:
+      - "9002:9002"
+    environment:
+      PORT: 9002
+      NODE_ENV: production
+      DATABASE_URL: postgres://finapex_admin:SecretBankPassword2026!@postgres:5432/finapex_db
+      JWT_SECRET: finapex-super-secret-production-key-2026
+      AWS_REGION: us-east-1
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  transaction-service:
+    build:
+      context: ../services
+      dockerfile: Dockerfile
+    command: ["node", "transaction-service/index.js"]
+    container_name: finapex-transaction-service
+    ports:
+      - "9003:9003"
+    environment:
+      PORT: 9003
+      NODE_ENV: production
+      DATABASE_URL: postgres://finapex_admin:SecretBankPassword2026!@postgres:5432/finapex_db
+      JWT_SECRET: finapex-super-secret-production-key-2026
+      AWS_REGION: us-east-1
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  api-gateway:
+    build:
+      context: ../services
+      dockerfile: Dockerfile
+    command: ["node", "gateway/index.js"]
+    container_name: finapex-api-gateway
+    ports:
+      - "9000:9000"
+    environment:
+      PORT: 9000
+      NODE_ENV: production
+      AUTH_SERVICE_URL: http://auth-service:9001
+      ACCOUNT_SERVICE_URL: http://account-service:9002
+      TRANSACTION_SERVICE_URL: http://transaction-service:9003
+      AWS_REGION: us-east-1
+    depends_on:
+      - auth-service
+      - account-service
+      - transaction-service
+
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    container_name: finapex-frontend
+    ports:
+      - "9004:80"
+    depends_on:
+      - api-gateway
+
+volumes:
+  pgdata:

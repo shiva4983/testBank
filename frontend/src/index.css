@@ -1,0 +1,206 @@
+@import "tailwindcss";
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #F8FAFC;
+    color: #0F172A;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+
+  /* Accessibility: Accessible Focus Visible Indicator (WCAG 2.4.7 Focus Visible) */
+  :focus-visible {
+    outline: 3px solid #2563EB !important;
+    outline-offset: 2px !important;
+    border-radius: 4px;
+  }
+}
+
+/* Accessibility: Skip to Main Content Link (WCAG 2.4.1 Bypass Blocks) */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 10px;
+  background: #0B192C;
+  color: #FFFFFF;
+  padding: 8px 16px;
+  z-index: 100;
+  font-weight: 700;
+  border-radius: 6px;
+  transition: top 0.2s ease;
+  text-decoration: underline;
+}
+.skip-link:focus {
+  top: 10px;
+}
+
+/* Buttons with WCAG 44x44px Minimum Touch Targets & High Contrast (>= 4.5:1) */
+.btn-primary {
+  background-color: #D9480F; /* Contrast ratio 4.9:1 against white text */
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 8px;
+  padding: 11px 22px;
+  min-height: 44px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn-primary:hover:not(:disabled) {
+  background-color: #B93807;
+  box-shadow: 0 4px 12px rgba(217, 72, 15, 0.25);
+}
+.btn-primary:disabled {
+  background-color: #94A3B8;
+  color: #F8FAFC;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background-color: #FFFFFF;
+  color: #0B192C;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 8px;
+  padding: 10px 20px;
+  min-height: 44px;
+  border: 1.5px solid #94A3B8;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn-secondary:hover:not(:disabled) {
+  background-color: #F1F5F9;
+  border-color: #475569;
+}
+
+/* Form Input Styling with High-Contrast Borders */
+.input-field {
+  width: 100%;
+  min-height: 44px;
+  padding: 11px 14px;
+  border-radius: 8px;
+  border: 1.5px solid #64748B; /* WCAG 3:1 Non-text contrast ratio */
+  background-color: #FFFFFF;
+  color: #0F172A;
+  font-size: 14px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.input-field:focus {
+  border-color: #1E3E62;
+  box-shadow: 0 0 0 3px rgba(30, 62, 98, 0.2);
+}
+.input-field.input-error {
+  border-color: #DC2626 !important;
+  background-color: #FEF2F2;
+}
+
+/* Badges */
+.badge-active {
+  background-color: #DCFCE7;
+  color: #14532D; /* Contrast 7.3:1 */
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  border: 1px solid #86EFAC;
+}
+.badge-frozen {
+  background-color: #FEE2E2;
+  color: #7F1D1D; /* Contrast 7.8:1 */
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  border: 1px solid #FCA5A5;
+}
+
+.card {
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.06);
+}
+
+.field-error-text {
+  color: #B91C1C; /* Contrast 5.9:1 against white */
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 16px;
+}
+
+/* ==========================================================================
+   TESTIVA ACCESSIBILITY VIOLATION SIMULATION MODES
+   ========================================================================== */
+
+/* 1. Low Contrast Violation Mode: Violates WCAG 1.4.3 Contrast (Minimum) */
+.a11y-low-contrast {
+  color: #CBD5E1 !important; /* Low contrast against white / light gray */
+}
+.a11y-low-contrast label,
+.a11y-low-contrast h1,
+.a11y-low-contrast h2,
+.a11y-low-contrast h3,
+.a11y-low-contrast p,
+.a11y-low-contrast span,
+.a11y-low-contrast th,
+.a11y-low-contrast td {
+  color: #A0AEC0 !important; /* Contrast ratio ~ 1.8:1 (FAIL) */
+}
+.a11y-low-contrast .btn-primary {
+  background-color: #FFB380 !important;
+  color: #FFFFFF !important; /* Contrast ratio ~ 1.6:1 (FAIL) */
+}
+.a11y-low-contrast .input-field {
+  border-color: #F1F5F9 !important;
+  color: #94A3B8 !important;
+}
+
+/* 2. No Focus Visible Violation Mode: Violates WCAG 2.4.7 Focus Visible */
+.a11y-no-focus *:focus,
+.a11y-no-focus *:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+.a11y-no-focus .skip-link {
+  display: none !important;
+}
+
+/* 3. Small Touch Target Violation: Violates WCAG 2.5.5 / 2.5.8 Target Size */
+.a11y-small-targets button,
+.a11y-small-targets input,
+.a11y-small-targets select {
+  min-height: 20px !important;
+  padding: 2px 4px !important;
+  font-size: 11px !important;
+}

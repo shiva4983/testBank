@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinApex - Figma Design System & Artboard Viewer</title>
+  <style>
+    :root {
+      --bg: #0F172A;
+      --panel: #1E293B;
+      --border: #334155;
+      --text: #F8FAFC;
+      --muted: #94A3B8;
+      --primary: #3B82F6;
+      --primary-hover: #2563EB;
+      --accent: #6366F1;
+      --radius: 8px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Inter, system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+    /* Header */
+    header {
+      background: #0B1120;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      background: #1D4ED8;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: white;
+    }
+    .brand-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .brand-badge {
+      font-size: 11px;
+      background: #312E81;
+      color: #A5B4FC;
+      border: 1px solid #4F46E5;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .header-links {
+      display: flex;
+      gap: 16px;
+      font-size: 13px;
+    }
+    .header-links a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .header-links a:hover {
+      color: var(--text);
+    }
+
+    /* Main Workspace */
+    .workspace {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* Sidebar Navigation */
+    .sidebar {
+      width: 300px;
+      background: var(--panel);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      overflow-y: auto;
+    }
+    .sidebar-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 16px 20px 8px;
+    }
+    .screen-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      cursor: pointer;
+      border-left: 3px solid transparent;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.15s ease;
+    }
+    .screen-item:hover {
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text);
+    }
+    .screen-item.active {
+      background: rgba(59, 130, 246, 0.1);
+      border-left-color: var(--primary);
+      color: #93C5FD;
+      font-weight: 600;
+    }
+    .screen-number {
+      width: 22px;
+      height: 22px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .screen-item.active .screen-number {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Artboard Canvas View */
+    .viewport {
+      flex: 1;
+      background: #020617;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .viewport-toolbar {
+      height: 48px;
+      background: #0B1120;
+      border-bottom: 1px solid var(--border);
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+    }
+    .viewport-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+    }
+    .viewport-controls {
+      display: flex;
+      gap: 8px;
+    }
+    .btn-tool {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .btn-tool:hover {
+      background: #334155;
+    }
+    .btn-download {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+    }
+    .canvas-container {
+      flex: 1;
+      overflow: auto;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      background: 
+        radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .artboard-wrapper {
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #334155;
+      background: #FFFFFF;
+      max-width: 1440px;
+      width: 100%;
+      transition: transform 0.2s ease;
+    }
+    .artboard-wrapper img, .artboard-wrapper object {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* Inspector Drawer */
+    .inspector {
+      width: 320px;
+      background: var(--panel);
+      border-left: 1px solid var(--border);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      font-size: 13px;
+    }
+    .inspector h3 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+    .meta-row {
+      margin-bottom: 14px;
+    }
+    .meta-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .meta-val {
+      font-family: monospace;
+      color: #38BDF8;
+      background: #0F172A;
+      padding: 6px 10px;
+      border-radius: 6px;
+      word-break: break-all;
+    }
+    .token-chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .token-chip {
+      background: #0F172A;
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-family: monospace;
+      color: #A5B4FC;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header>
+    <div class="brand">
+      <div class="brand-logo">F</div>
+      <div class="brand-title">FinApex Figma Design System</div>
+      <span class="brand-badge">TESTIVA READY</span>
+    </div>
+    <div class="header-links">
+      <a href="FIGMA_DESIGN_SYSTEM.md" target="_blank">Design Doc &amp; Mapping</a>
+      <a href="figma-tokens.json" target="_blank">DTCG Tokens (JSON)</a>
+      <a href="http://localhost:9004" target="_blank">Live React App (Port 9004)</a>
+    </div>
+  </header>
+
+  <div class="workspace">
+    <!-- Sidebar Screen Selector -->
+    <div class="sidebar">
+      <div class="sidebar-section-title">Figma Artboards &amp; Frames</div>
+      
+      <div class="screen-item active" onclick="loadScreen(0)">
+        <div class="screen-number">01</div>
+        <div>
+          <div>Login Screen</div>
+          <div style="font-size: 11px; color: var(--muted);">1440 x 900 • 2FA &amp; Form Validations</div>
+        </div>
+      </div>
+
+      <div class="screen-item" onclick="loadScreen(1)">
+        <div class="screen-number">02</div>
+        <div>
+          <div>Dashboard Overview</div>
+          <div style="font-size: 11px; color: var(--muted);">1440 x 960 • Balances &amp; Actions</div>
+        </div>
+      </div>
+
+      <div class="screen-item" onclick="loadScreen(2)">
+        <div class="screen-number">03</div>
+        <div>
+          <div>Fund Transfers</div>
+          <div style="font-size: 11px; color: var(--muted);">1440 x 960 • Review Modal &amp; Beneficiaries</div>
+        </div>
+      </div>
+
+      <div class="screen-item" onclick="loadScreen(3)">
+        <div class="screen-number">04</div>
+        <div>
+          <div>Bill Payments</div>
+          <div style="font-size: 11px; color: var(--muted);">1440 x 960 • Utility Invoices &amp; Schedule</div>
+        </div>
+      </div>
+
+      <div class="screen-item" onclick="loadScreen(4)">
+        <div class="screen-number">05</div>
+        <div>
+          <div>Statements &amp; Ledger</div>
+          <div style="font-size: 11px; color: var(--muted);">1440 x 960 • Filterable Audit History</div>
+        </div>
+      </div>
+
+      <div class="screen-item" onclick="loadScreen(5)">
+        <div class="screen-number">06</div>
+        <div>
+          <div>Testiva Admin Lab</div>
+          <div style="font-size: 11px; color: var(--muted);">1440 x 1024 • Chaos, Self-Healing &amp; A11y</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Center Viewport Canvas -->
+    <div class="viewport">
+      <div class="viewport-toolbar">
+        <div class="viewport-title" id="artboard-title">
+          <span>01-login-screen.svg</span>
+          <span style="font-size: 11px; color: var(--muted);">(1440 x 900)</span>
+        </div>
+        <div class="viewport-controls">
+          <button class="btn-tool" onclick="setZoom(0.75)">75%</button>
+          <button class="btn-tool" onclick="setZoom(1.0)">100%</button>
+          <button class="btn-tool" onclick="setZoom(1.25)">125%</button>
+          <a id="btn-download-svg" class="btn-download" href="screens/01-login-screen.svg" download>Export Vector SVG</a>
+        </div>
+      </div>
+
+      <div class="canvas-container">
+        <div class="artboard-wrapper" id="artboard-frame">
+          <img id="screen-img" src="screens/01-login-screen.svg" alt="Figma Screen Frame" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Inspector / Testiva Mapping Panel -->
+    <div class="inspector">
+      <h3>Figma &amp; Testiva Inspector</h3>
+      
+      <div class="meta-row">
+        <div class="meta-label">Target Page Route</div>
+        <div class="meta-val" id="meta-route">/login</div>
+      </div>
+
+      <div class="meta-row">
+        <div class="meta-label">Primary Testiva Locators</div>
+        <div class="meta-val" id="meta-locators">data-testid="input-email"<br>data-testid="input-password"<br>data-testid="btn-login"</div>
+      </div>
+
+      <div class="meta-row">
+        <div class="meta-label">Self-Healing Mutants</div>
+        <div class="meta-val" id="meta-mutants">id="login-email" → "usr_auth_mail_v2"</div>
+      </div>
+
+      <div class="meta-row">
+        <div class="meta-label">WCAG 2.1 AA Checklist</div>
+        <div class="meta-val" id="meta-a11y">Color contrast &gt; 4.5:1<br>Explicit &lt;label htmlFor&gt;<br>2px outline on :focus-visible</div>
+      </div>
+
+      <div class="meta-row">
+        <div class="meta-label">Design Tokens Used</div>
+        <div class="token-chip-group">
+          <span class="token-chip">color.primary.600</span>
+          <span class="token-chip">color.surface.canvas</span>
+          <span class="token-chip">radius.md (8px)</span>
+          <span class="token-chip">elevation.shadow.md</span>
+          <span class="token-chip">typography.body.14</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const screens = [
+      {
+        file: 'screens/01-login-screen.svg',
+        title: '01-login-screen.svg (1440 x 900)',
+        route: '/login',
+        locators: 'data-testid="input-email"\ndata-testid="input-password"\ndata-testid="btn-login"',
+        mutants: 'id="login-email" → "usr_auth_mail_v2"\nid="btn-submit-login" → "submit_v2"',
+        a11y: 'Color contrast 7.2:1 (Pass)\nExplicit label association\nLive region on validation error'
+      },
+      {
+        file: 'screens/02-dashboard-screen.svg',
+        title: '02-dashboard-screen.svg (1440 x 960)',
+        route: '/dashboard',
+        locators: 'data-testid="balance-checking"\ndata-testid="balance-savings"\ndata-testid="btn-quick-transfer"',
+        mutants: 'id="stat-checking" → "chk_val_v2"\nid="btn-quick-transfer" → "cta_xfer_v2"',
+        a11y: 'WCAG Card hierarchy (H2)\nIcon alt text provided\nTabular balances accessible'
+      },
+      {
+        file: 'screens/03-transfers-screen.svg',
+        title: '03-transfers-screen.svg (1440 x 960)',
+        route: '/transfers',
+        locators: 'data-testid="select-source-account"\ndata-testid="select-beneficiary"\ndata-testid="input-transfer-amount"\ndata-testid="modal-confirm-transfer"',
+        mutants: 'id="select-from" → "src_acct_v2"\nid="input-transfer-amount" → "fld-sum-v2"',
+        a11y: 'Aria-modal="true" focus trap\nAria-labelledby title bind\nInput number validation role'
+      },
+      {
+        file: 'screens/04-bill-payments-screen.svg',
+        title: '04-bill-payments-screen.svg (1440 x 960)',
+        route: '/bills',
+        locators: 'data-testid="select-provider"\ndata-testid="input-consumer-id"\ndata-testid="input-bill-amount"\ndata-testid="btn-submit-bill"',
+        mutants: 'id="select-provider" → "sel_biller_v2"\nid="input-consumer-id" → "meter_num_v2"',
+        a11y: 'Due badge contrast 6.1:1\nForm helper text linked via aria-describedby'
+      },
+      {
+        file: 'screens/05-statements-screen.svg',
+        title: '05-statements-screen.svg (1440 x 960)',
+        route: '/transactions',
+        locators: 'data-testid="input-search"\ndata-testid="select-filter-date"\ndata-testid="btn-export-csv"\ndata-testid="btn-export-pdf"',
+        mutants: 'id="input-search" → "fld-query-v2"\nid="btn-export-pdf" → "act_dl_pdf_v2"',
+        a11y: 'Accessible table scope="col"\nKeyboard-focusable pagination'
+      },
+      {
+        file: 'screens/06-testiva-lab-screen.svg',
+        title: '06-testiva-lab-screen.svg (1440 x 1024)',
+        route: '/admin',
+        locators: 'data-testid="slider-latency"\ndata-testid="slider-fault-rate"\ndata-testid="radio-schema-mutated"\ndata-testid="toggle-master-a11y"',
+        mutants: 'Admin controls mutate DOM selectors across the entire application runtime',
+        a11y: 'A11y Chaos Engine: Injects intentional contrast, label, focus, and ARIA violations'
+      }
+    ];
+
+    let currentZoom = 1.0;
+
+    function loadScreen(index) {
+      const s = screens[index];
+      document.querySelectorAll('.screen-item').forEach((item, i) => {
+        item.classList.toggle('active', i === index);
+      });
+      document.getElementById('screen-img').src = s.file;
+      document.getElementById('artboard-title').innerText = s.title;
+      document.getElementById('btn-download-svg').href = s.file;
+      document.getElementById('meta-route').innerText = s.route;
+      document.getElementById('meta-locators').innerHTML = s.locators.replace(/\n/g, '<br>');
+      document.getElementById('meta-mutants').innerHTML = s.mutants.replace(/\n/g, '<br>');
+      document.getElementById('meta-a11y').innerHTML = s.a11y.replace(/\n/g, '<br>');
+    }
+
+    function setZoom(factor) {
+      currentZoom = factor;
+      const el = document.getElementById('artboard-frame');
+      el.style.transform = `scale(${factor})`;
+      el.style.transformOrigin = 'top center';
+    }
+  </script>
+</body>
+</html>

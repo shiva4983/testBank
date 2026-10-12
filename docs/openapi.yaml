@@ -1,0 +1,578 @@
+openapi: 3.0.3
+info:
+  title: FinApex Digital Banking Microservices API
+  description: |
+    Enterprise Digital Banking Microservices orchestrated via an API Gateway.
+    Features strict request validation, structured AWS CloudWatch correlation tracing,
+    and comprehensive endpoints for accounts, transfers, utility payments, and transactions.
+  version: 1.0.0
+  contact:
+    name: FinApex Architecture Team
+    email: api-support@finapex.bank
+servers:
+  - url: http://localhost:5000
+    description: Local API Gateway
+  - url: https://api.finapex-demo.aws.com
+    description: AWS ECS Production Gateway
+
+tags:
+  - name: Authentication
+    description: User identity, login, and token issuance (Auth Service)
+  - name: Accounts
+    description: Checking, savings, credit accounts and beneficiaries (Account Service)
+  - name: Transfers
+    description: Fund transfer execution and validations (Transaction Service)
+  - name: Bill Payments
+    description: Utility bill payment services (Transaction Service)
+  - name: Transactions & Statements
+    description: Historical ledger search, filtering, and export (Transaction Service)
+
+paths:
+  /health:
+    get:
+      summary: Gateway Health Check
+      responses:
+        '200':
+          description: Service healthy
+          content:
+            application/json:
+              example: { status: "UP", timestamp: "2026-10-09T09:30:00Z" }
+
+  /api/v1/auth/login:
+    post:
+      tags: [Authentication]
+      summary: User Authentication
+      description: Validates user credentials and returns JWT bearer token.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '400':
+          description: Field validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '401':
+          description: Invalid credentials
+
+  /api/v1/auth/me:
+    get:
+      tags: [Authentication]
+      summary: Get Current User Profile
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Current user profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+
+  /api/v1/accounts:
+    get:
+      tags: [Accounts]
+      summary: List User Accounts
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: List of user bank accounts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+
+  /api/v1/accounts/{accountId}:
+    get:
+      tags: [Accounts]
+      summary: Get Account Details
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+
+  /api/v1/accounts/beneficiaries:
+    get:
+      tags: [Accounts]
+      summary: List Saved Beneficiaries
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Beneficiary'
+
+  /api/v1/transactions/transfer:
+    post:
+      tags: [Transfers]
+      summary: Execute Fund Transfer
+      description: Performs real-time funds transfer with balance check and daily limit enforcement.
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: X-Correlation-ID
+          in: header
+          description: Request tracing ID for AWS CloudWatch
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferRequest'
+      responses:
+        '201':
+          description: Transfer executed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionResult'
+        '400':
+          description: Validation error or insufficient funds
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+
+  /api/v1/bills/billers:
+    get:
+      tags: [Bill Payments]
+      summary: Get Supported Billers
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Biller'
+
+  /api/v1/bills/pay:
+    post:
+      tags: [Bill Payments]
+      summary: Pay Utility Bill
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BillPayRequest'
+      responses:
+        '201':
+          description: Bill paid successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionResult'
+
+  /api/v1/transactions:
+    get:
+      tags: [Transactions & Statements]
+      summary: Filter & List Transactions
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: startDate
+          in: query
+          schema:
+            type: string
+            format: date
+          example: '2026-09-01'
+        - name: endDate
+          in: query
+          schema:
+            type: string
+            format: date
+          example: '2026-10-09'
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum: [ALL, TRANSFER, BILL_PAYMENT, DEPOSIT, WITHDRAWAL]
+        - name: minAmount
+          in: query
+          schema:
+            type: number
+        - name: maxAmount
+          in: query
+          schema:
+            type: number
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: Paginated transaction list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedTransactions'
+
+  /api/v1/transactions/statement/export/csv:
+    get:
+      tags: [Transactions & Statements]
+      summary: Export Statement as CSV
+      description: Generates and streams a CSV statement matching the provided filter criteria.
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: startDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum: [ALL, TRANSFER, BILL_PAYMENT, DEPOSIT, WITHDRAWAL]
+        - name: minAmount
+          in: query
+          schema:
+            type: number
+        - name: maxAmount
+          in: query
+          schema:
+            type: number
+        - name: search
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: CSV file download
+          headers:
+            Content-Disposition:
+              schema:
+                type: string
+              example: 'attachment; filename="finapex-statement-2026-10-09.csv"'
+          content:
+            text/csv:
+              schema:
+                type: string
+
+  /api/v1/transactions/statement/export/pdf:
+    get:
+      tags: [Transactions & Statements]
+      summary: Export Statement as PDF
+      description: Generates and streams an audit-grade, branded PDF account statement matching the filter criteria.
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: startDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum: [ALL, TRANSFER, BILL_PAYMENT, DEPOSIT, WITHDRAWAL]
+        - name: minAmount
+          in: query
+          schema:
+            type: number
+        - name: maxAmount
+          in: query
+          schema:
+            type: number
+        - name: search
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: PDF document download
+          headers:
+            Content-Disposition:
+              schema:
+                type: string
+              example: 'attachment; filename="finapex-statement-2026-10-09.pdf"'
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    LoginRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email:
+          type: string
+          example: john.doe@bank.com
+        password:
+          type: string
+          format: password
+          example: Password123!
+
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        user:
+          $ref: '#/components/schemas/UserProfile'
+
+    UserProfile:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+        fullName:
+          type: string
+        role:
+          type: string
+
+    Account:
+      type: object
+      properties:
+        id:
+          type: string
+        accountNumber:
+          type: string
+        accountType:
+          type: string
+          enum: [CHECKING, SAVINGS, CREDIT]
+        currency:
+          type: string
+          example: USD
+        balance:
+          type: number
+          example: 14250.75
+        availableBalance:
+          type: number
+          example: 14250.75
+        status:
+          type: string
+          example: ACTIVE
+        dailyTransferLimit:
+          type: number
+          example: 10000.00
+
+    Beneficiary:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        accountNumber:
+          type: string
+        routingNumber:
+          type: string
+        bankName:
+          type: string
+        nickname:
+          type: string
+
+    TransferRequest:
+      type: object
+      required: [fromAccountId, toAccountNumber, routingNumber, amount, remarks]
+      properties:
+        fromAccountId:
+          type: string
+          example: acc-101
+        toAccountNumber:
+          type: string
+          pattern: '^[0-9]{10,12}$'
+          example: '4491029384'
+        routingNumber:
+          type: string
+          pattern: '^[0-9]{9}$'
+          example: '021000021'
+        recipientName:
+          type: string
+          example: 'Alice Walker'
+        amount:
+          type: number
+          minimum: 1.00
+          maximum: 10000.00
+          example: 250.00
+        remarks:
+          type: string
+          minLength: 3
+          maxLength: 100
+          example: 'Consulting payment'
+
+    Biller:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        category:
+          type: string
+        billerCode:
+          type: string
+        consumerRegex:
+          type: string
+        minAmount:
+          type: number
+        maxAmount:
+          type: number
+
+    BillPayRequest:
+      type: object
+      required: [accountId, billerId, consumerNumber, dueDate, amount]
+      properties:
+        accountId:
+          type: string
+          example: acc-101
+        billerId:
+          type: string
+          example: bil-001
+        consumerNumber:
+          type: string
+          example: ELEC-982341
+        dueDate:
+          type: string
+          format: date
+          example: '2026-10-25'
+        amount:
+          type: number
+          minimum: 5.00
+          maximum: 5000.00
+          example: 145.80
+
+    TransactionResult:
+      type: object
+      properties:
+        referenceNumber:
+          type: string
+          example: 'TXN-20261009-8812'
+        status:
+          type: string
+          example: COMPLETED
+        amount:
+          type: number
+          example: 250.00
+        fee:
+          type: number
+          example: 0.00
+        timestamp:
+          type: string
+          format: date-time
+        message:
+          type: string
+          example: 'Transfer completed successfully'
+
+    PaginatedTransactions:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              referenceNumber:
+                type: string
+              amount:
+                type: number
+              type:
+                type: string
+              status:
+                type: string
+              recipientName:
+                type: string
+              toAccountNumber:
+                type: string
+              remarks:
+                type: string
+              createdAt:
+                type: string
+        pagination:
+          type: object
+          properties:
+            total:
+              type: integer
+            page:
+              type: integer
+            limit:
+              type: integer
+            totalPages:
+              type: integer
+
+    ValidationError:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: 'Field validation error'
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string

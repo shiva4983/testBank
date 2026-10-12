@@ -1,0 +1,222 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 960" width="1440" height="960">
+  <defs>
+    <style>
+      .font-sans { font-family: Inter, system-ui, -apple-system, sans-serif; }
+      .bg-canvas { fill: #F8FAFC; }
+      .bg-white { fill: #FFFFFF; }
+      .text-navy { fill: #0F172A; }
+      .text-slate { fill: #64748B; }
+      .text-blue { fill: #1D4ED8; }
+      .border-subtle { stroke: #E2E8F0; stroke-width: 1; }
+      .badge-success { fill: #DCFCE7; stroke: #86EFAC; }
+    </style>
+    <filter id="shadow-sm" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#0F172A" flood-opacity="0.05" />
+    </filter>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="1440" height="960" class="bg-canvas" />
+
+  <!-- Global Header / Navbar -->
+  <g id="navbar" class="font-sans" filter="url(#shadow-sm)">
+    <rect width="1440" height="72" class="bg-white" />
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#E2E8F0" stroke-width="1" />
+    
+    <!-- Logo -->
+    <g id="nav-brand" transform="translate(64, 18)">
+      <rect width="36" height="36" rx="8" fill="#1D4ED8" />
+      <path d="M12 24 L18 12 L24 24 Z" fill="#FFFFFF" />
+      <circle cx="18" cy="18" r="3" fill="#60A5FA" />
+      <text x="46" y="24" font-size="20" font-weight="700" class="text-navy">FinApex</text>
+    </g>
+
+    <!-- Navigation Links -->
+    <g id="nav-links" transform="translate(240, 26)">
+      <text id="nav-dashboard" x="0" y="16" font-size="14" font-weight="500" class="text-slate">Dashboard</text>
+      <text id="nav-transfers" x="110" y="16" font-size="14" font-weight="500" class="text-slate">Transfers</text>
+      <text id="nav-billpay" x="210" y="16" font-size="14" font-weight="500" class="text-slate">Bill Pay</text>
+      
+      <!-- Active Item: Statements -->
+      <rect x="295" y="-4" width="110" height="36" rx="6" fill="#EFF6FF" />
+      <text id="nav-statements" x="311" y="18" font-size="14" font-weight="600" class="text-blue">Statements</text>
+      
+      <text id="nav-admin" x="435" y="16" font-size="14" font-weight="500" class="text-slate">Testiva Lab</text>
+    </g>
+
+    <!-- Right Profile / Status Area -->
+    <g id="nav-user" transform="translate(1240, 16)">
+      <circle cx="20" cy="20" r="18" fill="#E2E8F0" />
+      <text x="20" y="25" text-anchor="middle" font-size="13" font-weight="600" fill="#475569">JD</text>
+      <text x="48" y="24" font-size="14" font-weight="500" class="text-navy">John Doe</text>
+    </g>
+  </g>
+
+  <!-- Page Container -->
+  <g id="page-content" transform="translate(140, 100)" class="font-sans">
+    
+    <!-- Page Header & Download Buttons -->
+    <g id="header-section">
+      <text id="page-title" x="0" y="32" font-size="28" font-weight="700" class="text-navy">Statements &amp; Activity Ledger</text>
+      <text id="page-desc" x="0" y="58" font-size="15" class="text-slate">Audit-grade immutable transaction history with instant filtering and statement export.</text>
+      
+      <!-- Export buttons -->
+      <g id="export-actions" transform="translate(940, 12)">
+        <rect id="btn-export-csv" x="0" y="0" width="100" height="40" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+        <text x="50" y="24" text-anchor="middle" font-size="13" font-weight="600" class="text-navy">Export CSV</text>
+        
+        <rect id="btn-export-pdf" x="112" y="0" width="108" height="40" rx="8" fill="#1D4ED8" />
+        <text x="166" y="24" text-anchor="middle" font-size="13" font-weight="600" fill="#FFFFFF">Download PDF</text>
+      </g>
+    </g>
+
+    <!-- Filter & Search Toolbar -->
+    <g id="filter-toolbar" transform="translate(0, 90)" filter="url(#shadow-sm)">
+      <rect width="1160" height="80" rx="12" class="bg-white border-subtle" />
+      
+      <!-- Search Input -->
+      <g id="filter-search" transform="translate(24, 18)">
+        <text id="label-filter-search" x="0" y="-4" font-size="12" font-weight="600" class="text-slate">SEARCH KEYWORD</text>
+        <rect id="input-search" x="0" y="4" width="280" height="38" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1" />
+        <text x="12" y="28" font-size="13" class="text-slate">e.g. Payroll, PG&amp;E, Transfer...</text>
+      </g>
+
+      <!-- Account Selector -->
+      <g id="filter-account" transform="translate(328, 18)">
+        <text id="label-filter-account" x="0" y="-4" font-size="12" font-weight="600" class="text-slate">ACCOUNT</text>
+        <rect id="select-filter-account" x="0" y="4" width="220" height="38" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1" />
+        <text x="12" y="28" font-size="13" class="text-navy">Checking (...4920)</text>
+        <path d="M200 21 L205 27 L210 21" stroke="#64748B" stroke-width="2" fill="none" stroke-linecap="round" />
+      </g>
+
+      <!-- Date Range Selector -->
+      <g id="filter-date-range" transform="translate(572, 18)">
+        <text id="label-filter-date" x="0" y="-4" font-size="12" font-weight="600" class="text-slate">DATE RANGE</text>
+        <rect id="select-filter-date" x="0" y="4" width="200" height="38" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1" />
+        <text x="12" y="28" font-size="13" class="text-navy">Last 30 Days (Oct 2026)</text>
+        <path d="M180 21 L185 27 L190 21" stroke="#64748B" stroke-width="2" fill="none" stroke-linecap="round" />
+      </g>
+
+      <!-- Type Filter -->
+      <g id="filter-type" transform="translate(796, 18)">
+        <text id="label-filter-type" x="0" y="-4" font-size="12" font-weight="600" class="text-slate">TRANSACTION TYPE</text>
+        <rect id="select-filter-type" x="0" y="4" width="180" height="38" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1" />
+        <text x="12" y="28" font-size="13" class="text-navy">All Transactions</text>
+        <path d="M160 21 L165 27 L170 21" stroke="#64748B" stroke-width="2" fill="none" stroke-linecap="round" />
+      </g>
+
+      <!-- Reset Filter Button -->
+      <g id="btn-reset-filters" transform="translate(1000, 22)">
+        <rect width="136" height="38" rx="6" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1" />
+        <text x="68" y="24" text-anchor="middle" font-size="13" font-weight="500" class="text-slate">Reset Filters</text>
+      </g>
+    </g>
+
+    <!-- Ledger Table Card -->
+    <g id="ledger-table-card" transform="translate(0, 194)" filter="url(#shadow-sm)">
+      <rect width="1160" height="580" rx="12" class="bg-white border-subtle" />
+      
+      <!-- Table Header -->
+      <g id="table-head" transform="translate(32, 24)">
+        <text x="0" y="0" font-size="12" font-weight="700" fill="#64748B">TXN ID &amp; DATE</text>
+        <text x="240" y="0" font-size="12" font-weight="700" fill="#64748B">DESCRIPTION / RECIPIENT</text>
+        <text x="560" y="0" font-size="12" font-weight="700" fill="#64748B">CATEGORY</text>
+        <text x="740" y="0" font-size="12" font-weight="700" fill="#64748B">STATUS</text>
+        <text x="960" y="0" font-size="12" font-weight="700" fill="#64748B" text-anchor="end">AMOUNT</text>
+        <text x="1096" y="0" font-size="12" font-weight="700" fill="#64748B" text-anchor="end">BALANCE</text>
+        <line x1="0" y1="16" x2="1096" y2="16" stroke="#F1F5F9" stroke-width="1.5" />
+      </g>
+
+      <!-- Table Rows -->
+      <!-- Row 1: Direct Deposit -->
+      <g id="row-txn-1001" transform="translate(32, 70)">
+        <text id="txn-1001-date" x="0" y="16" font-size="14" font-weight="600" class="text-navy">Oct 01, 2026</text>
+        <text x="0" y="34" font-size="12" class="text-slate">TXN-902144</text>
+        
+        <text id="txn-1001-desc" x="240" y="16" font-size="14" font-weight="500" class="text-navy">Payroll Direct Deposit - ACME Corp</text>
+        <text x="240" y="34" font-size="12" class="text-slate">ACH Electronic Credit</text>
+        
+        <text x="560" y="24" font-size="13" class="text-navy">Income</text>
+        
+        <rect x="740" y="10" width="80" height="24" rx="4" fill="#DCFCE7" stroke="#86EFAC" stroke-width="1" />
+        <text x="780" y="26" text-anchor="middle" font-size="11" font-weight="600" fill="#166534">CLEARED</text>
+        
+        <text id="txn-1001-amount" x="960" y="24" font-size="15" font-weight="700" fill="#059669" text-anchor="end">+$3,450.00</text>
+        <text x="1096" y="24" font-size="14" font-weight="500" class="text-navy" text-anchor="end">$14,250.75</text>
+        
+        <line x1="0" y1="52" x2="1096" y2="52" stroke="#F8FAFC" stroke-width="1" />
+      </g>
+
+      <!-- Row 2: Wire Transfer -->
+      <g id="row-txn-1002" transform="translate(32, 142)">
+        <text id="txn-1002-date" x="0" y="16" font-size="14" font-weight="600" class="text-navy">Sep 28, 2026</text>
+        <text x="0" y="34" font-size="12" class="text-slate">TXN-884012</text>
+        
+        <text id="txn-1002-desc" x="240" y="16" font-size="14" font-weight="500" class="text-navy">Wire Transfer to Jane Smith</text>
+        <text x="240" y="34" font-size="12" class="text-slate">Account *9941 • Internal P2P</text>
+        
+        <text x="560" y="24" font-size="13" class="text-navy">Transfer</text>
+        
+        <rect x="740" y="10" width="80" height="24" rx="4" fill="#DCFCE7" stroke="#86EFAC" stroke-width="1" />
+        <text x="780" y="26" text-anchor="middle" font-size="11" font-weight="600" fill="#166534">CLEARED</text>
+        
+        <text id="txn-1002-amount" x="960" y="24" font-size="15" font-weight="700" fill="#0F172A" text-anchor="end">-$500.00</text>
+        <text x="1096" y="24" font-size="14" font-weight="500" class="text-navy" text-anchor="end">$10,800.75</text>
+        
+        <line x1="0" y1="52" x2="1096" y2="52" stroke="#F8FAFC" stroke-width="1" />
+      </g>
+
+      <!-- Row 3: Utility Bill -->
+      <g id="row-txn-1003" transform="translate(32, 214)">
+        <text id="txn-1003-date" x="0" y="16" font-size="14" font-weight="600" class="text-navy">Sep 25, 2026</text>
+        <text x="0" y="34" font-size="12" class="text-slate">TXN-883199</text>
+        
+        <text id="txn-1003-desc" x="240" y="16" font-size="14" font-weight="500" class="text-navy">Pacific Gas &amp; Electric (PG&amp;E)</text>
+        <text x="240" y="34" font-size="12" class="text-slate">Utility Bill Auto-Debit</text>
+        
+        <text x="560" y="24" font-size="13" class="text-navy">Utilities</text>
+        
+        <rect x="740" y="10" width="80" height="24" rx="4" fill="#DCFCE7" stroke="#86EFAC" stroke-width="1" />
+        <text x="780" y="26" text-anchor="middle" font-size="11" font-weight="600" fill="#166534">CLEARED</text>
+        
+        <text id="txn-1003-amount" x="960" y="24" font-size="15" font-weight="700" fill="#0F172A" text-anchor="end">-$134.20</text>
+        <text x="1096" y="24" font-size="14" font-weight="500" class="text-navy" text-anchor="end">$11,300.75</text>
+        
+        <line x1="0" y1="52" x2="1096" y2="52" stroke="#F8FAFC" stroke-width="1" />
+      </g>
+
+      <!-- Row 4: Coffee Shop -->
+      <g id="row-txn-1004" transform="translate(32, 286)">
+        <text id="txn-1004-date" x="0" y="16" font-size="14" font-weight="600" class="text-navy">Sep 24, 2026</text>
+        <text x="0" y="34" font-size="12" class="text-slate">TXN-881920</text>
+        
+        <text id="txn-1004-desc" x="240" y="16" font-size="14" font-weight="500" class="text-navy">Blue Bottle Coffee - San Francisco</text>
+        <text x="240" y="34" font-size="12" class="text-slate">Debit Card POS *4920</text>
+        
+        <text x="560" y="24" font-size="13" class="text-navy">Food &amp; Dining</text>
+        
+        <rect x="740" y="10" width="80" height="24" rx="4" fill="#DCFCE7" stroke="#86EFAC" stroke-width="1" />
+        <text x="780" y="26" text-anchor="middle" font-size="11" font-weight="600" fill="#166534">CLEARED</text>
+        
+        <text id="txn-1004-amount" x="960" y="24" font-size="15" font-weight="700" fill="#0F172A" text-anchor="end">-$6.75</text>
+        <text x="1096" y="24" font-size="14" font-weight="500" class="text-navy" text-anchor="end">$11,434.95</text>
+        
+        <line x1="0" y1="52" x2="1096" y2="52" stroke="#F8FAFC" stroke-width="1" />
+      </g>
+
+      <!-- Pagination Footer -->
+      <g id="pagination-toolbar" transform="translate(32, 510)">
+        <text x="0" y="20" font-size="13" class="text-slate">Showing 1 - 4 of 128 transactions</text>
+        
+        <g id="page-controls" transform="translate(900, 0)">
+          <rect id="btn-prev-page" width="80" height="34" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1" />
+          <text x="40" y="21" text-anchor="middle" font-size="13" font-weight="500" class="text-slate">Previous</text>
+          
+          <rect id="btn-next-page" x="96" width="80" height="34" rx="6" fill="#FFFFFF" stroke="#1D4ED8" stroke-width="1.5" />
+          <text x="136" y="21" text-anchor="middle" font-size="13" font-weight="600" fill="#1D4ED8">Next</text>
+        </g>
+      </g>
+    </g>
+
+  </g>
+</svg>

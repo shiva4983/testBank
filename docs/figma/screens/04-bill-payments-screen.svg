@@ -1,0 +1,185 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 960" width="1440" height="960">
+  <defs>
+    <style>
+      .font-sans { font-family: Inter, system-ui, -apple-system, sans-serif; }
+      .bg-canvas { fill: #F8FAFC; }
+      .bg-white { fill: #FFFFFF; }
+      .text-navy { fill: #0F172A; }
+      .text-slate { fill: #64748B; }
+      .text-blue { fill: #1D4ED8; }
+      .border-subtle { stroke: #E2E8F0; stroke-width: 1; }
+      .btn-primary { fill: #1D4ED8; rx: 8px; }
+      .badge-success { fill: #DCFCE7; stroke: #86EFAC; }
+      .badge-pending { fill: #FEF3C7; stroke: #FDE047; }
+    </style>
+    <filter id="shadow-sm" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#0F172A" flood-opacity="0.05" />
+    </filter>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="1440" height="960" class="bg-canvas" />
+
+  <!-- Global Header / Navbar -->
+  <g id="navbar" class="font-sans" filter="url(#shadow-sm)">
+    <rect width="1440" height="72" class="bg-white" />
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#E2E8F0" stroke-width="1" />
+    
+    <!-- Logo -->
+    <g id="nav-brand" transform="translate(64, 18)">
+      <rect width="36" height="36" rx="8" fill="#1D4ED8" />
+      <path d="M12 24 L18 12 L24 24 Z" fill="#FFFFFF" />
+      <circle cx="18" cy="18" r="3" fill="#60A5FA" />
+      <text x="46" y="24" font-size="20" font-weight="700" class="text-navy">FinApex</text>
+    </g>
+
+    <!-- Navigation Links -->
+    <g id="nav-links" transform="translate(240, 26)">
+      <text id="nav-dashboard" x="0" y="16" font-size="14" font-weight="500" class="text-slate">Dashboard</text>
+      <text id="nav-transfers" x="110" y="16" font-size="14" font-weight="500" class="text-slate">Transfers</text>
+      
+      <!-- Active Item: Bill Pay -->
+      <rect x="200" y="-4" width="90" height="36" rx="6" fill="#EFF6FF" />
+      <text id="nav-billpay" x="216" y="18" font-size="14" font-weight="600" class="text-blue">Bill Pay</text>
+      
+      <text id="nav-statements" x="315" y="16" font-size="14" font-weight="500" class="text-slate">Statements</text>
+      <text id="nav-admin" x="425" y="16" font-size="14" font-weight="500" class="text-slate">Testiva Lab</text>
+    </g>
+
+    <!-- Right Profile / Status Area -->
+    <g id="nav-user" transform="translate(1240, 16)">
+      <circle cx="20" cy="20" r="18" fill="#E2E8F0" />
+      <text x="20" y="25" text-anchor="middle" font-size="13" font-weight="600" fill="#475569">JD</text>
+      <text x="48" y="24" font-size="14" font-weight="500" class="text-navy">John Doe</text>
+    </g>
+  </g>
+
+  <!-- Page Container -->
+  <g id="page-content" transform="translate(140, 100)" class="font-sans">
+    
+    <!-- Page Header -->
+    <g id="header-section">
+      <text id="page-title" x="0" y="32" font-size="28" font-weight="700" class="text-navy">Utility &amp; Bill Payments</text>
+      <text id="page-desc" x="0" y="58" font-size="15" class="text-slate">Schedule immediate payments or autopay for verified domestic utility providers.</text>
+    </g>
+
+    <!-- Two Column Layout: Left Form (560px), Right Upcoming (560px) -->
+    
+    <!-- LEFT COLUMN: Payment Form Card -->
+    <g id="card-bill-form" transform="translate(0, 90)" filter="url(#shadow-sm)">
+      <rect width="560" height="680" rx="12" class="bg-white border-subtle" />
+      
+      <text x="32" y="44" font-size="18" font-weight="600" class="text-navy">Make a Utility Payment</text>
+      <text x="32" y="68" font-size="14" class="text-slate">Select a provider and enter account details</text>
+      <line x1="32" y1="88" x2="528" y2="88" stroke="#F1F5F9" stroke-width="1" />
+
+      <!-- From Account Select -->
+      <g id="form-group-source-account" transform="translate(32, 108)">
+        <text id="label-source-account" x="0" y="0" font-size="14" font-weight="500" class="text-navy">Pay From Account *</text>
+        <rect id="select-source-account" x="0" y="8" width="496" height="46" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+        <text x="16" y="37" font-size="14" class="text-navy">Premier Checking (...4920) - $14,250.75 Available</text>
+        <path d="M470 28 L475 34 L480 28" stroke="#64748B" stroke-width="2" fill="none" stroke-linecap="round" />
+      </g>
+
+      <!-- Biller Category / Service Provider -->
+      <g id="form-group-provider" transform="translate(32, 192)">
+        <text id="label-provider" x="0" y="0" font-size="14" font-weight="500" class="text-navy">Service Provider / Biller *</text>
+        <rect id="select-provider" x="0" y="8" width="496" height="46" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+        <text x="16" y="37" font-size="14" class="text-navy">Pacific Gas &amp; Electric (PG&amp;E) - Electric &amp; Gas</text>
+        <path d="M470 28 L475 34 L480 28" stroke="#64748B" stroke-width="2" fill="none" stroke-linecap="round" />
+      </g>
+
+      <!-- Consumer Account / Meter Number -->
+      <g id="form-group-consumer-id" transform="translate(32, 276)">
+        <text id="label-consumer-id" x="0" y="0" font-size="14" font-weight="500" class="text-navy">Consumer Account # *</text>
+        <rect id="input-consumer-id" x="0" y="8" width="496" height="46" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+        <text x="16" y="37" font-size="14" class="text-navy">94102-884029-01</text>
+        <text x="0" y="68" font-size="12" class="text-slate">Found at the top-right of your monthly statement</text>
+      </g>
+
+      <!-- Amount Input -->
+      <g id="form-group-amount" transform="translate(32, 368)">
+        <text id="label-bill-amount" x="0" y="0" font-size="14" font-weight="500" class="text-navy">Payment Amount (USD) *</text>
+        <rect id="input-bill-amount" x="0" y="8" width="496" height="46" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+        <text x="16" y="37" font-size="16" font-weight="600" fill="#1D4ED8">$142.80</text>
+        <text x="440" y="37" font-size="12" font-weight="600" fill="#059669">DUE NOW</text>
+      </g>
+
+      <!-- Payment Date -->
+      <g id="form-group-schedule-date" transform="translate(32, 452)">
+        <text id="label-schedule-date" x="0" y="0" font-size="14" font-weight="500" class="text-navy">Scheduled Date *</text>
+        <rect id="input-schedule-date" x="0" y="8" width="496" height="46" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+        <text x="16" y="37" font-size="14" class="text-navy">Oct 15, 2026 (Earliest Delivery)</text>
+      </g>
+
+      <!-- Buttons -->
+      <g id="form-actions" transform="translate(32, 540)">
+        <rect id="btn-submit-bill" width="496" height="48" rx="8" fill="#1D4ED8" />
+        <text x="248" y="30" text-anchor="middle" font-size="15" font-weight="600" fill="#FFFFFF">Confirm &amp; Pay Bill</text>
+      </g>
+
+      <!-- Trust Assurance Footer -->
+      <g transform="translate(32, 610)">
+        <text x="248" text-anchor="middle" font-size="12" class="text-slate">Payments processed securely via NACHA ACH network with $0 fee.</text>
+      </g>
+    </g>
+
+    <!-- RIGHT COLUMN: Saved Billers & Pending Invoices -->
+    <g id="card-upcoming-bills" transform="translate(600, 90)" filter="url(#shadow-sm)">
+      <rect width="560" height="680" rx="12" class="bg-white border-subtle" />
+      
+      <text x="32" y="44" font-size="18" font-weight="600" class="text-navy">Pending &amp; Registered Billers</text>
+      <text x="32" y="68" font-size="14" class="text-slate">Upcoming auto-invoices for the current cycle</text>
+      <line x1="32" y1="88" x2="528" y2="88" stroke="#F1F5F9" stroke-width="1" />
+
+      <!-- Biller Item 1: PG&E -->
+      <g id="biller-item-1" transform="translate(32, 110)">
+        <rect width="496" height="88" rx="10" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1" />
+        <circle cx="36" cy="44" r="20" fill="#EFF6FF" />
+        <path d="M36 32 L36 56 M24 44 L48 44" stroke="#1D4ED8" stroke-width="2" stroke-linecap="round" />
+        
+        <text id="biller-1-title" x="72" y="36" font-size="15" font-weight="600" class="text-navy">Pacific Gas &amp; Electric (PG&amp;E)</text>
+        <text id="biller-1-meta" x="72" y="56" font-size="13" class="text-slate">Acct #94102-884029 • Due Oct 18, 2026</text>
+        
+        <text id="biller-1-amount" x="464" y="36" text-anchor="end" font-size="16" font-weight="700" class="text-navy">$142.80</text>
+        <rect x="404" y="46" width="60" height="22" rx="4" fill="#FEF3C7" stroke="#FDE047" stroke-width="1" />
+        <text x="434" y="61" text-anchor="middle" font-size="11" font-weight="600" fill="#92400E">DUE</text>
+      </g>
+
+      <!-- Biller Item 2: AT&T Fiber -->
+      <g id="biller-item-2" transform="translate(32, 214)">
+        <rect width="496" height="88" rx="10" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1" />
+        <circle cx="36" cy="44" r="20" fill="#EFF6FF" />
+        <text x="36" y="50" text-anchor="middle" font-size="14" font-weight="700" fill="#1D4ED8">W</text>
+        
+        <text id="biller-2-title" x="72" y="36" font-size="15" font-weight="600" class="text-navy">AT&amp;T Fiber Internet</text>
+        <text id="biller-2-meta" x="72" y="56" font-size="13" class="text-slate">Acct #88012-9901 • Autopay Scheduled</text>
+        
+        <text id="biller-2-amount" x="464" y="36" text-anchor="end" font-size="16" font-weight="700" class="text-navy">$80.00</text>
+        <rect x="390" y="46" width="74" height="22" rx="4" fill="#DCFCE7" stroke="#86EFAC" stroke-width="1" />
+        <text x="427" y="61" text-anchor="middle" font-size="11" font-weight="600" fill="#166534">AUTOPAY</text>
+      </g>
+
+      <!-- Biller Item 3: Municipal Water -->
+      <g id="biller-item-3" transform="translate(32, 318)">
+        <rect width="496" height="88" rx="10" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1" />
+        <circle cx="36" cy="44" r="20" fill="#EFF6FF" />
+        <text x="36" y="50" text-anchor="middle" font-size="14" font-weight="700" fill="#1D4ED8">💧</text>
+        
+        <text id="biller-3-title" x="72" y="36" font-size="15" font-weight="600" class="text-navy">Bay Area Water District</text>
+        <text id="biller-3-meta" x="72" y="56" font-size="13" class="text-slate">Acct #2019-48219 • Due Nov 02, 2026</text>
+        
+        <text id="biller-3-amount" x="464" y="36" text-anchor="end" font-size="16" font-weight="700" class="text-navy">$45.50</text>
+        <rect x="396" y="46" width="68" height="22" rx="4" fill="#E0F2FE" stroke="#7DD3FC" stroke-width="1" />
+        <text x="430" y="61" text-anchor="middle" font-size="11" font-weight="600" fill="#0369A1">PENDING</text>
+      </g>
+
+      <!-- Add New Biller Action Box -->
+      <g id="action-add-biller" transform="translate(32, 430)">
+        <rect width="496" height="72" rx="8" fill="#FFFFFF" stroke="#93C5FD" stroke-width="1.5" stroke-dasharray="6 4" />
+        <text x="248" y="42" text-anchor="middle" font-size="14" font-weight="600" fill="#1D4ED8">+ Register New Utility Biller</text>
+      </g>
+    </g>
+
+  </g>
+</svg>
